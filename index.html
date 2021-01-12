@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="Mobile Friendly Workout Timer">
+  <meta name="author" content="Dennis Sauve">
+
+</head>
+
+<body>
+
+  <!-- Display the countdown timer in an element -->
+  <p id="demo"></p>
+
+  <p>
+    Number of Sets: <input id="numberOfSets" type="number" step="1" value="2" />
+  </p>
+
+  <p>
+    Set Duration: <input id="setDuration" type="number" step="1" value="5" />
+  </p>
+
+  <p>
+    Cooldown Duration: <input id="cooldownDuration" type="number" step="1" value="1" />
+  </p>
+
+  <p>
+    Start: <button onclick="startRunning()">Go</button>
+  </p>
+
+  <script>
+    // Set the date we're counting down to
+    let displaySeconds;
+    let workoutList = [];
+
+    let numberOfSets = 0;
+    let setDuration = 0;
+    let cooldownDuration = 0;
+    
+    let running = false;
+    document.getElementById("demo").innerHTML = displaySeconds;
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+      
+      
+      if (running) {
+        if (displaySeconds < 1) {
+          if (workoutList.length > 0) {
+            displaySeconds = workoutList.shift()
+            document.getElementById("demo").innerHTML = displaySeconds;
+          } else {
+            running = false;
+            document.getElementById("demo").innerHTML = "Done!";
+            return;
+          }
+        }
+        displaySeconds--;
+        // Display the result in the element with id="demo"
+        document.getElementById("demo").innerHTML = displaySeconds;
+      }
+  
+
+    }, 1000);
+
+    function startRunning() {
+      running = !running;
+      
+      numberOfSets = parseInt(document.getElementById("numberOfSets").value)
+      setDuration = parseInt(document.getElementById("setDuration").value)
+      cooldownDuration = parseInt(document.getElementById("cooldownDuration").value)
+      
+      displaySeconds = setDuration
+      document.getElementById("demo").innerHTML = displaySeconds;
+      
+      for (let i = 0; i < numberOfSets; i ++) {
+        workoutList.push(setDuration, cooldownDuration);
+      }
+
+      workoutList.shift();
+      
+      console.log(numberOfSets, setDuration, cooldownDuration, displaySeconds, workoutList)
+    }
+  </script>
+
+</body>
+
+</html>
