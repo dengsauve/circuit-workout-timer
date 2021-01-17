@@ -1,13 +1,58 @@
 <template>
-  <div id="app">
-    <p>{{ displaySeconds }}</p>
-    <form>
-      <input type='number' v-model="numberOfSets" />
-      <input type='number' v-model="setDuration" />
-      <input type='number' v-model="cooldownDuration" />
-    </form>
-    <button @click="startRunning">Go</button>
-  </div>
+    <v-app>
+
+      <v-app-bar app></v-app-bar>
+
+      <v-main>
+        <v-container class="text-center">
+
+          <v-progress-linear
+            class="mt-5 mb-10"
+            rounded
+            :value="progressPercentage" 
+            height="50"
+            color="success"
+            >
+            {{ displaySeconds }}
+          </v-progress-linear>
+
+
+          <v-form>
+            <v-slider 
+              min="0" 
+              max="30"
+              v-model="numberOfSets"
+              label="number of sets"
+            >
+                          <template v-slot:append>
+                <span style="white-space: nowrap;">{{ numberOfSets }}</span>
+              </template>
+            </v-slider>
+            <v-slider 
+              min="0" 
+              max="120" 
+              v-model="setDuration"
+              label="set duration"
+            >
+                            <template v-slot:append>
+                <span style="white-space: nowrap;">{{ setDuration }}</span>
+              </template>
+            </v-slider>
+            <v-slider 
+              min="0"
+              max="120"
+              v-model="cooldownDuration"
+              label="cooldown duration"
+              >
+              <template v-slot:append>
+                <span style="white-space: nowrap;">{{ cooldownDuration }}</span>
+              </template>
+            </v-slider>
+          </v-form>
+          <v-btn x-large @click="startRunning" color="success"><font color="white">START</font></v-btn>
+        </v-container>
+      </v-main>
+    </v-app>
 </template>
 
 <script>
@@ -23,6 +68,11 @@ export default {
       running: false,
       x: null,
     };
+  },
+  computed: {
+    progressPercentage: function () {
+      return 100 * this.displaySeconds / this.setDuration;
+    }
   },
   mounted: function () {
     this.x = setInterval(function () {
@@ -65,12 +115,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
