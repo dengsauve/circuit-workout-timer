@@ -1,8 +1,8 @@
 # circuit-workout-timer
-Basic workout timer for mobile and desktop
 
-https://vuetifyjs.com/en/components/progress-linear/#default
+[Check it out live](https://dengsauve.github.io/circuit-workout-timer/)
 
+Basic workout timer for mobile and desktop using [Vuetify](https://vuetifyjs.com/)
 
 
 ## Project setup
