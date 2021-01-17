@@ -1,7 +1,9 @@
 <template>
     <v-app>
 
-      <v-app-bar app></v-app-bar>
+      <v-app-bar app>
+        <v-app-bar-title>Circuit Training Timer</v-app-bar-title>
+      </v-app-bar>
 
       <v-main>
         <v-container class="text-center">
@@ -9,9 +11,10 @@
           <v-progress-linear
             class="mt-5 mb-10"
             rounded
+            reverse
             :value="progressPercentage" 
             height="50"
-            color="success"
+            :color="displayColor"
             >
             {{ displaySeconds }}
           </v-progress-linear>
@@ -61,6 +64,7 @@ export default {
   data: function () {
     return {
       displaySeconds: 5,
+      displayColor: 'success',
       workoutList: [],
       numberOfSets: 10,
       setDuration: 10,
@@ -69,27 +73,34 @@ export default {
       x: null,
     };
   },
+
   computed: {
     progressPercentage: function () {
       return 100 * this.displaySeconds / this.setDuration;
     }
   },
+
   mounted: function () {
     this.x = setInterval(function () {
       if (this.running) {
-        if (this.displaySeconds < 1) {
+        this.displaySeconds--;
+        if (this.displaySeconds === 5) {
+          this.displayColor = 'error'
+        }
+        if (this.displaySeconds < 0) {
           if (this.workoutList.length > 0) {
             this.displaySeconds = this.workoutList.shift();
+            this.displayColor = 'success'
           } else {
             this.running = false;
             this.displaySeconds = 'Done';
             return;
           }
         }
-        this.displaySeconds--;
       }
     }.bind(this), 1000);
   },
+
   methods: {
     startRunning: function () {
       this.running = !this.running;
