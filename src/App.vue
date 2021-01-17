@@ -52,7 +52,9 @@
               </template>
             </v-slider>
           </v-form>
-          <v-btn x-large @click="startRunning" color="success"><font color="white">START</font></v-btn>
+          <v-btn x-large @click="startRunning" color="success" class="mr-5"><font color="white">START</font></v-btn>
+          <v-btn x-large @click="pauseRunning" color="warning" class="mr-5"><font color="white">PAUSE</font></v-btn>
+          <v-btn x-large @click="reset" color="error" class="mr-5"><font color="white">RESET</font></v-btn>
         </v-container>
       </v-main>
     </v-app>
@@ -63,8 +65,9 @@ export default {
   name: "App",
   data: function () {
     return {
-      displaySeconds: 5,
+      displaySeconds: 0,
       displayColor: 'success',
+      workingOut: false,
       workoutList: [],
       numberOfSets: 10,
       setDuration: 10,
@@ -89,8 +92,9 @@ export default {
         }
         if (this.displaySeconds < 0) {
           if (this.workoutList.length > 0) {
+            this.workingOut = !this.workingOut;
             this.displaySeconds = this.workoutList.shift();
-            this.displayColor = 'success'
+            this.displayColor = this.workingOut ? 'success' : 'primary';
           } else {
             this.running = false;
             this.displaySeconds = 'Done';
@@ -103,7 +107,8 @@ export default {
 
   methods: {
     startRunning: function () {
-      this.running = !this.running;
+      this.running = true;
+      this.workingOut = true;
 
       this.displaySeconds = this.setDuration;
 
@@ -121,6 +126,16 @@ export default {
         this.workoutList
       );
     },
+
+    pauseRunning: function () {
+      this.running = !this.running;
+    },
+
+    reset: function () {
+      this.running = false;
+      this.workoutList = [];
+      this.displaySeconds = 0;
+    }
   },
 };
 </script>
