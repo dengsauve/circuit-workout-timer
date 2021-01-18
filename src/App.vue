@@ -79,9 +79,9 @@ export default {
       displayColor: "success",
       workingOut: false,
       workoutList: [],
-      numberOfSets: 10,
-      setDuration: 10,
-      cooldownDuration: 10,
+      numberOfSets: 15,
+      setDuration: 90,
+      cooldownDuration: 30,
       running: false,
       x: null,
     };
@@ -116,6 +116,20 @@ export default {
       }.bind(this),
       1000
     );
+
+    this.loadLastSettings();
+  },
+
+  watch: {
+    numberOfSets: function (newValue, oldValue) {
+      localStorage.numberOfSets = newValue;
+    },
+    setDuration: function (newValue, oldValue) {
+      localStorage.setDuration = newValue;
+    },
+    cooldownDuration: function (newValue, oldValue) {
+      localStorage.cooldownDuration = newValue;
+    }
   },
 
   methods: {
@@ -149,6 +163,12 @@ export default {
       this.workoutList = [];
       this.displaySeconds = 0;
     },
+
+    loadLastSettings: function () {
+      if (localStorage.numberOfSets) this.numberOfSets = localStorage.numberOfSets;
+      if (localStorage.setDuration) this.setDuration = localStorage.setDuration;
+      if (localStorage.cooldownDuration) this.cooldownDuration = localStorage.cooldownDuration;
+    }
   },
 };
 </script>
