@@ -6,5 +6,7 @@
 - [x] Mobile First approach (must function perfectly on mobile)
 - Indicator Sounds
     - [ ] 5 second warning
-    - [ ] Cooldown notification
-    - [ ] `ding ding` sound effect for start/end
+    - [x] Cooldown notification
+    - [x] `ding ding` sound effect for start/end
+- [ ] 5 second count in
+- [ ] Move labels above slider line
