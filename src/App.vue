@@ -84,7 +84,7 @@ export default {
       cooldownDuration: 30,
       running: false,
       x: null,
-      bellSounds: new Audio('/audio/bell.mp3')
+      bellSounds: new Audio('audio/bell.mp3')
     };
   },
 
