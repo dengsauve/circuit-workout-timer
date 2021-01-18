@@ -84,6 +84,7 @@ export default {
       cooldownDuration: 30,
       running: false,
       x: null,
+      bellSounds: new Audio('/audio/bell.mp3')
     };
   },
 
@@ -145,13 +146,7 @@ export default {
 
       this.workoutList.shift();
 
-      console.log(
-        this.numberOfSets,
-        this.setDuration,
-        this.cooldownDuration,
-        this.displaySeconds,
-        this.workoutList
-      );
+      this.bellSounds.play();
     },
 
     pauseRunning: function () {
