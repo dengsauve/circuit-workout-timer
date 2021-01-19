@@ -132,7 +132,11 @@ export default {
           }
           if (this.displaySeconds < 0) {
             if (this.workoutList.length > 0) {
-              if (this.workingOut) this.wowSounds.play();
+              if (this.workingOut) {
+                this.wowSounds.play();
+              } else {
+                this.bellSounds.play();
+              }
               this.workingOut = !this.workingOut;
               this.displaySeconds = this.workoutList.shift();
               this.displayColor = this.workingOut ? "success" : "primary";
